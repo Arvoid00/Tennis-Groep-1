@@ -1,0 +1,109 @@
+/* styles */
+/* called by your view template */
+
+/* You might want to try something fancier: */
+/* less: http://lesscss.org/ */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: montserrat, sans-serif;
+  margin: 100px;
+  text-align: center;
+}
+
+.fas { 
+  font-family: 'FontAwesome' !important; 
+  font-style: normal;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+form {
+  padding: 15px;
+  display: inline-block;
+  width: 100%;
+  max-width: 340px;
+  border-radius: 20px;
+}
+
+button {
+  padding: 0;
+  border: none;
+}
+
+button {
+  font-size: 16px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+button:active {
+  box-shadow: none;
+  background-color: lightgrey;
+}
+
+.container {
+  padding: 35px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: rgba(165, 163, 163, 0.25);
+  width: 55vw;
+  border-radius: 5px;
+}
+
+select:hover {
+  background-color: lightblue;
+}
+
+#file {
+  display: none;
+}
+
+.fas .fa-check {
+  color: green;
+}
+
+.custom-file-upload {
+  border: 1px solid #ccc;
+  display: inline-block;
+  cursor: pointer;
+  margin-bottom: 1vw;
+}
+
+.btn {
+  border-bottom-width: 0.25rem;
+  border-right-width: 0.25rem;
+  border-radius: 0.5rem;
+  border-color: #00b4d8;
+  border-bottom-style: solid;
+  border-right-style: solid;
+  background-color: #48cae4;
+  padding: 6px 12px;
+  width: 175px;
+  font-size: 16px;
+  display: inline-block;
+}
+
+.space {
+  margin-bottom: 15px;
+  margin-top: 10px;
+}
+
+#sep {
+  margin-top: 20px;
+}
+
+.submitbtn {
+  cursor: pointer;
+}
+
+.return {
+  margin-top:20px;
+  text-decoration:none;
+  color: black;
+}
