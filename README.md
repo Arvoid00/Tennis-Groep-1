@@ -5,7 +5,7 @@ Big Data C1 Team 1 in samenwerking met Sport Data Valley en de KNLTB.
 Youp Schaefers		    500738283
 Sander van de Kamp		500734351
 Stijn Matla			      500783587
-Arvid de Haas			     500772805
+Arvid de Haas			    500772805
 
 
 Tijdens het semester Big Data hebben wij (Sander van de Kamp, Stijn Matla, Arvid de Haas en Youp Schaefers) voor het project tennis gekozen. Bij het vormen van het team kende Stijn, Arvid en Youp elkaar al maar Sander nog niet. Het klikte gelijk met Sander en hierdoor konden wij ervoor zorgen dat er een mooi eindproduct geleverd kon worden.
