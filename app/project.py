@@ -15,7 +15,7 @@ import time
 def UploadToDB(filename, sep):
   try:
       engine = create_engine(
-          'mysql://haasa3:Xr24CzK6SHxign@oege.ie.hva.nl/zhaasa3')
+          'mysql://username:password@domainname.com/databasename')
       print('Connection Established')
   except Exception as e:
       print('Connection Failed', e)
