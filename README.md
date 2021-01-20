@@ -3,8 +3,11 @@
 Big Data C1 Team 1 in samenwerking met Sport Data Valley en de KNLTB.
 
 Youp Schaefers		    500738283
+
 Sander van de Kamp		500734351
+
 Stijn Matla			      500783587
+
 Arvid de Haas			    500772805
 
 
