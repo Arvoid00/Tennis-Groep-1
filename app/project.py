@@ -9,9 +9,7 @@ import time
 # %% Connect to Oege
 
 #engine = create_engine('mysql+mysqlconnector://username:password@oege.ie.hva.nl/databasename')
-# Login:
-# haasa3
-# Xr24CzK6SHxign
+
 def UploadToDB(filename, sep):
   try:
       engine = create_engine(
