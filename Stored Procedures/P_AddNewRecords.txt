@@ -1,0 +1,8 @@
+BEGIN
+
+INSERT INTO datavalley_tennis 
+SELECT datavalley_tennis_new.*, 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP FROM datavalley_tennis d1
+RIGHT JOIN datavalley_tennis_new ON datavalley_tennis_new.name = d1.name
+WHERE d1.name IS Null;
+
+END

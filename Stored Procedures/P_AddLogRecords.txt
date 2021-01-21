@@ -1,0 +1,12 @@
+BEGIN
+
+DECLARE current_update_time DATETIME;
+DECLARE num_rows int;
+
+SELECT CURRENT_TIMESTAMP INTO current_update_time;
+SELECT COUNT(*) INTO num_rows FROM datavalley_tennis;
+
+INSERT INTO datavalley_tennis_log
+VALUES (current_update_time, num_rows);
+
+END

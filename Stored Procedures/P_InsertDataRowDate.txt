@@ -1,0 +1,14 @@
+IN row_name VARCHAR 255
+IN row_position INT
+
+BEGIN
+
+DECLARE current_update_time DATETIME;
+SELECT CURRENT_TIMESTAMP INTO current_update_time;
+
+INSERT INTO datavalley_tennis
+SELECT *, 1, current_update_time, current_update_time
+FROM datavalley_tennis_new
+WHERE name = row_name AND position = row_position;
+
+END

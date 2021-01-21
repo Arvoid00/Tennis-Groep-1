@@ -1,0 +1,86 @@
+IN col_names TEXT utf8
+
+BEGIN
+
+DECLARE row_index INT DEFAULT 0;
+DECLARE row_count INT;
+DECLARE row_name VARCHAR(99);
+DECLARE row_position INT;
+DECLARE current_update_time DATETIME;
+SELECT col_names;
+
+SELECT CURRENT_TIMESTAMP INTO current_update_time;
+
+SELECT count(*) INTO row_count
+FROM datavalley_tennis_new;
+
+#loops over all the rows in the data2 table
+row_loop: LOOP
+    #stops when all rows have been looped over
+    IF row_index >= row_count THEN
+    	LEAVE row_loop;
+    END IF;
+    
+    #selects the name and position of the current row in the datavalley_tennis_new table
+    SELECT name, position
+    INTO row_name, row_position
+    FROM datavalley_tennis_new
+    LIMIT 1 
+    OFFSET row_index;
+                
+    # clears the previous data for the next loop
+    SET @data1result = NULL;
+    SET @data2result = NULL;       
+        
+    # selects the column value from the datavalley_tennis table which is active
+    SET @data1 = CONCAT('SELECT CONCAT_WS("", ', col_names, ') 
+                         FROM datavalley_tennis 
+                         WHERE datavalley_tennis.name = "', row_name, '"
+                         AND datavalley_tennis.position = "', row_position, '"
+                         AND datavalley_tennis.isActive = 1
+                         INTO @data1result');
+
+    # selects the column value from the data2 table
+    SET @data2 = CONCAT('SELECT CONCAT_WS("", ', col_names, ') 
+                         FROM datavalley_tennis_new 
+                         WHERE datavalley_tennis_new.name = "', row_name, '"
+                         AND datavalley_tennis_new.position = "', row_position, '"
+                         INTO @data2result');                       
+
+
+    # runs the data1 concatted statement
+    PREPARE stmt FROM @data1;
+    EXECUTE stmt;
+            
+    # stops the loop if the data1 table doesn't have the matching value
+    IF @data1result IS NULL THEN
+        SELECT row_index + 1 INTO row_index;
+        ITERATE row_loop;
+    END IF;
+        
+    # executes the data2 statement to get the value
+    PREPARE stmt FROM @data2;
+    EXECUTE stmt;
+                    
+    # inserts new row if data doesn't match
+    IF @data1result != @data2result THEN
+        # change the data1 value and sets isActive to false and changes the updated time
+        UPDATE datavalley_tennis
+        SET isActive = 0, Updated_at = current_update_time
+        WHERE name = row_name AND position = row_position AND isActive = 1;
+            
+        # inserts the data into the data1 table
+        CALL P_InsertDataRowDate(row_name, row_position);
+            
+        # prints out the value to show why it inserted
+	    SELECT CONCAT(@data1result, ' != ', @data2result);
+    END IF;
+   
+    # Increases row_index by 1
+    SELECT row_index + 1 INTO row_index;
+END LOOP;
+
+CALL P_AddNewRecords;
+CALL P_AddLogRecord;
+
+END
