@@ -9,19 +9,19 @@ import time
 # %% Connect to Oege
 
 #engine = create_engine('mysql+mysqlconnector://username:password@oege.ie.hva.nl/databasename')
-
+# Login:
+# haasa3
+# Xr24CzK6SHxign
 def UploadToDB(filename, sep):
   try:
       engine = create_engine(
-          'mysql://username:password@domainname.com/databasename')
+          'mysql://haasa3:Xr24CzK6SHxign@oege.ie.hva.nl/zhaasa3')
       print('Connection Established')
   except Exception as e:
       print('Connection Failed', e)
 
   fp = os.path.join(app.config['UPLOAD_FOLDER'], filename)
   data = pd.read_csv(fp, sep=sep, error_bad_lines=False, index_col=False)
-  
-  #data.to_sql('DVT', con=engine, if_exists='replace', index=False, chunksize=10000)
 
   def chunker(seq, size):
       return (seq[pos:pos + size] for pos in range(0, len(seq), size))
@@ -46,12 +46,6 @@ def UploadToDB(filename, sep):
     df.columns = df.columns.str.strip().str.replace(' ', '_').str.lower()
 
 
-#     # %% Add Help columns for logging purposes in MySQL
-
-#     df['isActive'] = True
-#     df['Updated_at'] = datetime.now()
-#     df['Created_at'] = datetime.now()
-
     # %% Dates to datetime
 
     df['datum'] = pd.to_datetime(df['datum']).dt.date
@@ -66,7 +60,7 @@ def UploadToDB(filename, sep):
     # Lijst hebben met namen hoe het wel moet zijn om te vergelijken, anders pakken we kortste (tijdelijk)
 
 
-    def match_sequency_stuffers(string):
+    def match_names(string):
         names = df['retourneerder'].unique()
 
         for name in names:
@@ -87,7 +81,7 @@ def UploadToDB(filename, sep):
 
     for col_name in player_names:
         df[col_name] = df[col_name].apply(
-            lambda name: match_sequency_stuffers(name))
+            lambda name: match_names(name))
     
     #
     #      CLEANING END
